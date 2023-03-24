@@ -15,65 +15,53 @@ void checkDirection(char *target, int * width_min, int *height_min, int *width_m
     int c_length = strlen(target);
 
     if(c_length == 1){
-
         if(!strcmp(target,"U")){
-            
             *height_max = *target_y;
-            *target_y = (*target_y - * height_min) / 2;
-
-        }
-
-        if(!strcmp(target,"D")){
-            
-            *height_min = *target_y;
-            *target_y = (*height_max + *target_y) / 2;
-
-        } 
-
-        if(!strcmp(target,"L")){
-            
             *width_max = *target_x;
-            *target_x = *target_x / 2;
-            *width_max /= 2;
-        }
-
-        if(!strcmp(target,"R")){
-
             *width_min = *target_x;
+            *target_y = (*target_y + *height_min) / 2;
+        }
+        if(!strcmp(target,"D")){
+            *height_min = *target_y;
+            *width_max = *target_x;
+            *width_min = *target_x;
+            *target_y = (*height_max + *target_y) / 2;
+        } 
+        if(!strcmp(target,"L")){
+            *width_max = *target_x;
+            *height_max = *target_y;
+            *height_min = *target_y;
+            *target_x = (*width_min + *target_x) / 2;
+        }
+        if(!strcmp(target,"R")){
+            *width_min = *target_x;
+            *height_max = *target_y;
+            *height_min = *target_y;
             *target_x = (*width_max + *target_x) / 2;
-
         } 
     }else if(c_length == 2){
-        
         if(!strcmp(target,"DL")){
-            
             *height_min = *target_y;
             *width_max = *target_x;
-            *target_x = *target_x / 2;
             *target_y = (*height_max + *target_y) / 2;
-
+            *target_x = (*width_min + *target_x) / 2;
         }
-
         if(!strcmp(target,"DR")){
            *height_min = *target_y;
            *width_min = *target_x;
            *target_y = (*height_max + *target_y) / 2;
            *target_x = (*width_max + *target_x) / 2;
-
         } 
-
         if(!strcmp(target,"UL")){
             *height_max = *target_y;
             *width_max = *target_x;
-            *target_y = *target_y / 2;
-            *target_x = *target_x / 2;
+            *target_y = (*target_y + *height_min) / 2;
+            *target_x = (*width_min + *target_x) / 2;
         }
-
         if(!strcmp(target,"UR")){
-            
             *height_max = *target_y;
             *width_min = *target_x;
-            *target_y = *target_y / 2;
+            *target_y = (*target_y + *height_min) / 2;
             *target_x = (*width_max + *target_x) / 2;
         }
     }
@@ -115,6 +103,7 @@ int main()
         // Write an action using printf(). DON'T FORGET THE TRAILING \n
         // To debug: fprintf(stderr, "Debug messages...\n");
         checkDirection(bomb_dir,&min_X_position,&min_Y_position,&max_X_position,&max_Y_position,&X0,&Y0);
+        fprintf(stderr, "(%d,%d):(%d,%d) \n",min_X_position,min_Y_position,max_X_position,max_Y_position );
         printf("%d %d\n",X0,Y0);
 
         // the location of the next window Batman should jump to.
