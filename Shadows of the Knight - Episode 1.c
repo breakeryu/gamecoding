@@ -14,58 +14,66 @@ void checkDirection(char *target, int * width_min, int *height_min, int *width_m
 
     int c_length = strlen(target);
 
-    if(c_length == 1){
-        if(!strcmp(target,"U")){
-            *height_max = *target_y;
-            *width_max = *target_x;
-            *width_min = *target_x;
-            *target_y = (*target_y + *height_min) / 2;
-        }
-        if(!strcmp(target,"D")){
-            *height_min = *target_y;
-            *width_max = *target_x;
-            *width_min = *target_x;
-            *target_y = (*height_max + *target_y) / 2;
-        } 
-        if(!strcmp(target,"L")){
-            *width_max = *target_x;
-            *height_max = *target_y;
-            *height_min = *target_y;
-            *target_x = (*width_min + *target_x) / 2;
-        }
-        if(!strcmp(target,"R")){
-            *width_min = *target_x;
-            *height_max = *target_y;
-            *height_min = *target_y;
-            *target_x = (*width_max + *target_x) / 2;
-        } 
-    }else if(c_length == 2){
-        if(!strcmp(target,"DL")){
-            *height_min = *target_y;
-            *width_max = *target_x;
-            *target_y = (*height_max + *target_y) / 2;
-            *target_x = (*width_min + *target_x) / 2;
-        }
-        if(!strcmp(target,"DR")){
-           *height_min = *target_y;
-           *width_min = *target_x;
-           *target_y = (*height_max + *target_y) / 2;
-           *target_x = (*width_max + *target_x) / 2;
-        } 
-        if(!strcmp(target,"UL")){
+    switch (target[0])
+    {
+
+    case 'U':
+        if(target[1] == 'L'){
             *height_max = *target_y;
             *width_max = *target_x;
             *target_y = (*target_y + *height_min) / 2;
             *target_x = (*width_min + *target_x) / 2;
-        }
-        if(!strcmp(target,"UR")){
+        }else if(target[1] == 'R'){
             *height_max = *target_y;
             *width_min = *target_x;
             *target_y = (*target_y + *height_min) / 2;
             *target_x = (*width_max + *target_x) / 2;
+        }else{
+            *height_max = *target_y;
+            *width_max = *target_x;
+            *width_min = *target_x;
+            *target_y = (*target_y + *height_min) / 2;
         }
-    }
+        break;
+
+    case 'D':
+        if(target[1] == 'L'){
+            *height_min = *target_y;
+            *width_max = *target_x;
+            *target_y = (*height_max + *target_y) / 2;
+            *target_x = (*width_min + *target_x) / 2;
+        }else if(target[1] == 'R'){
+            *height_min = *target_y;
+            *width_min = *target_x;
+            *target_y = (*height_max + *target_y) / 2;
+            *target_x = (*width_max + *target_x) / 2;
+        }else{
+            *height_min = *target_y;
+            *width_max = *target_x;
+            *width_min = *target_x;
+            *target_y = (*height_max + *target_y) / 2;
+        }
+        break;
+
+    case 'L':
+        *width_max = *target_x;
+        *height_max = *target_y;
+        *height_min = *target_y;
+        *target_x = (*width_min + *target_x) / 2;
+        break;
+
+    case 'R':
+        *width_min = *target_x;
+        *height_max = *target_y;
+        *height_min = *target_y;
+        *target_x = (*width_max + *target_x) / 2;
+        break;
+
+    default:
+        break;
     
+    }
+
 }
     
 
